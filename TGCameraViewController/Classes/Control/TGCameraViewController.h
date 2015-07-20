@@ -33,5 +33,6 @@
 @interface TGCameraViewController : UIViewController
 
 @property (weak) id<TGCameraDelegate> delegate;
+@property (nonatomic, assign) BOOL startFrontFacing;
 
 @end
