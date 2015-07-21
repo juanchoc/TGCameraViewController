@@ -48,6 +48,8 @@
 
 + (instancetype)newWithCameraDelegate:(id<TGCameraDelegate>)delegate;
 
++ (instancetype)newWithCameraDelegate:(id<TGCameraDelegate>)delegate startFrontFacing:(BOOL)startFrontFacing;
+
 @property (nonatomic, assign) BOOL startFrontFacing;
 
 @end

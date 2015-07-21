@@ -42,12 +42,18 @@
 
 + (instancetype)newWithCameraDelegate:(id<TGCameraDelegate>)delegate
 {
+    return [TGCameraNavigationController newWithCameraDelegate:delegate startFrontFacing:NO];
+}
+
++ (instancetype)newWithCameraDelegate:(id<TGCameraDelegate>)delegate startFrontFacing:(BOOL)startFrontFacing
+{
     TGCameraNavigationController *navigationController = [super new];
     navigationController.navigationBarHidden = YES;
+    navigationController.startFrontFacing = startFrontFacing;
     
     if (navigationController) {
         AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-
+        
         switch (status) {
             case AVAuthorizationStatusAuthorized:
                 [navigationController setupAuthorizedWithDelegate:delegate];
@@ -63,7 +69,7 @@
                 break;
         }
     }
-
+    
     return navigationController;
 }
 
