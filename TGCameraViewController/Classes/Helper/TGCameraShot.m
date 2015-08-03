@@ -61,6 +61,7 @@
         if (imageDataSampleBuffer != NULL) {
             NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
             UIImage *image = [UIImage imageWithData:imageData];
+            image = [UIImage imageWithCGImage:image.CGImage scale:image.scale orientation:UIImageOrientationLeftMirrored];
             UIImage *croppedImage = [weakSelf cropImage:image withCropSize:cropSize];
             completion(croppedImage);
         }
