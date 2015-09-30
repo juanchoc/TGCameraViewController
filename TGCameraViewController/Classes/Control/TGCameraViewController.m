@@ -38,9 +38,10 @@
 @property (strong, nonatomic) IBOutlet UIImageView *bottomRightView;
 @property (strong, nonatomic) IBOutlet UIView *separatorView;
 @property (strong, nonatomic) IBOutlet UIView *actionsView;
-@property (strong, nonatomic) IBOutlet UIButton *gridButton;
-@property (strong, nonatomic) IBOutlet UIButton *toggleButton;
-@property (strong, nonatomic) IBOutlet UIButton *shotButton;
+@property (strong, nonatomic) IBOutlet TGTintedButton *closeButton;
+@property (strong, nonatomic) IBOutlet TGTintedButton *gridButton;
+@property (strong, nonatomic) IBOutlet TGTintedButton *toggleButton;
+@property (strong, nonatomic) IBOutlet TGTintedButton *shotButton;
 @property (strong, nonatomic) IBOutlet TGTintedButton *albumButton;
 @property (strong, nonatomic) IBOutlet UIButton *flashButton;
 @property (strong, nonatomic) IBOutlet TGCameraSlideView *slideUpView;
@@ -79,11 +80,20 @@
         _topViewHeight.constant = 0;
     }
     
-    if ([[TGCamera getOption:kTGCameraOptionHiddenToggleButton] boolValue] == YES) {
-        _toggleButton.hidden = YES;
-        _toggleButtonWidth.constant = 0;
-    }
-    
+	NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+	if (devices.count > 1) {
+		if ([[TGCamera getOption:kTGCameraOptionHiddenToggleButton] boolValue] == YES) {
+			_toggleButton.hidden = YES;
+			_toggleButtonWidth.constant = 0;
+		}
+	}
+	else {
+		if ([[TGCamera getOption:kTGCameraOptionHiddenToggleButton] boolValue] == YES) {
+			_toggleButton.hidden = YES;
+			_toggleButtonWidth.constant = 0;
+		}
+	}
+	
     if ([[TGCamera getOption:kTGCameraOptionHiddenAlbumButton] boolValue] == YES) {
         _albumButton.hidden = YES;
     }
@@ -91,7 +101,11 @@
     [_albumButton.layer setCornerRadius:10.f];
     [_albumButton.layer setMasksToBounds:YES];
     
-    
+	[_closeButton setImage:[UIImage imageNamed:@"CameraClose"] forState:UIControlStateNormal];
+	[_shotButton setImage:[UIImage imageNamed:@"CameraShot"] forState:UIControlStateNormal];
+	[_gridButton setImage:[UIImage imageNamed:@"CameraGrid"] forState:UIControlStateNormal];
+	[_toggleButton setImage:[UIImage imageNamed:@"CameraToggle"] forState:UIControlStateNormal];
+	
     _camera = [TGCamera cameraWithFlashButton:_flashButton];
     
     _captureView.backgroundColor = [UIColor clearColor];
