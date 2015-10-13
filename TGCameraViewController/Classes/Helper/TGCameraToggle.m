@@ -41,12 +41,17 @@
 + (void)toogleWithCaptureSession:(AVCaptureSession *)session
 {
     AVCaptureDeviceInput *deviceInput = [session.inputs lastObject];
-    AVCaptureDeviceInput *reverseDeviceInput = [self reverseDeviceInput:deviceInput];
-    
-    [session beginConfiguration];
-    [session removeInput:deviceInput];
-    [session addInput:reverseDeviceInput];
-    [session commitConfiguration];
+	
+	if (deviceInput) {
+		AVCaptureDeviceInput *reverseDeviceInput = [self reverseDeviceInput:deviceInput];
+		
+		if (reverseDeviceInput) {
+			[session beginConfiguration];
+			[session removeInput:deviceInput];
+			[session addInput:reverseDeviceInput];
+			[session commitConfiguration];
+		}
+	}
 }
 
 #pragma mark -
