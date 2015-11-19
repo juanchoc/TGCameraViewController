@@ -55,6 +55,7 @@
     pickerController.delegate = delegate;
     pickerController.mediaTypes = @[(NSString *) kUTTypeImage];
     pickerController.allowsEditing = YES;
+    pickerController.navigationBar.tintColor = [UIColor whiteColor];
     
     return pickerController;
 }
